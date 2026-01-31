@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Tiktok Edits</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+<div id="welcome-screen">
+    <video autoplay muted loop id="bg-video">
+        <source src="videos/Moonlighthoodtrap final.mp4" type="video/mp4">
+    </video>
+    <audio id="vault-sound">
+        <source src="audio/Slam_Slice_Fast_01.mp3" type="audio/mpeg">
+    </audio>
+    <div class="welcome-content">
+        <h1>Justice456k Edit Vault</h1>
+        <button onclick="enterVault()">ENTER THE VAULT</button>
+    </div>
+</div>
+
+<nav class="navbar">
+
+    <a href="#anime" class="nav-anime">Anime</a>
+    <a href="#series-movies" class="nav-series-movies">Series/Movies</a>
+    <a href="#gaming" class="nav-gaming">Gaming</a>
+
+</nav>
+
+<h1>The Justice456k Edit Vault</h1>
+
+<p>Exploring the world of anime, TV series, movies and gaming through high-quality edits.</p>
+
+<h2 id="anime">Anime Edits</h2>
+<div id="anime-grid" class="video-grid">
+
+    
+
+</div>
+
+<h2 id="series-movies">Series/Movies Edits</h2>
+<div id="series-grid" class="video-grid">
+
+
+
+</div>
+
+<h2 id="gaming">Gaming Edits</h2>
+<div id="gaming-grid" class="video-grid">
+
+
+
+</div>
+
+<footer class="vault-footer">
+
+<p>&copy; 2026 The Justice456k Edit Vault</p>
+<a href="https://www.tiktok.com/@justice456k" target="_blank">
+    <i class="fa-brands fa-tiktok"></i>Follow on TikTok
+</a>
+
+</footer>
+
+<script>
+
+    const myEdits = [
+        {
+            title: "Cyberpunk: Edgerunners",
+            file: "videos/I want to hear you say the moon is beautiful.mp4",
+            category: "anime",
+            titleClass: "title-anime"
+        },
+        {
+            title: "The Seven Deadly Sins",
+            file: "videos/road rage x ney.mp4",
+            category: "anime",
+            titleClass: "title-anime"
+        },
+        {
+            title: "Sakamoto Days",
+            file: "videos/Final CC with text.mp4",
+            category: "anime",
+            titleClass: "title-anime"
+        },
+        {
+            title: "Demon Slayer - Flow Style",
+            file: "videos/Moonlighthoodtrap Final.mp4",
+            category: "anime",
+            titleClass: "title-anime"
+        },
+        {
+            title: "My Happy Marriage - Miyo Saimori",
+            file: "videos/MiyoLyricEdit.mp4",
+            category: "anime",
+            titleClass: "title-anime"
+        },
+        {
+            title: "Fire Force - Jargurnut",
+            file: "videos/I let world burn_fin.mp4",
+            category: "anime",
+            titleClass: "title-anime"
+        },
+        {
+            title: "Dragon Ball Super - Goku",
+            file: "videos/JMSN - Love Me X Goku.mp4",
+            category: "anime",
+            titleClass: "title-anime"
+        },
+        {
+            title: " Kuroko's Basketball - Flow Style",
+            file: "videos/Ball if I want to KB.mp4",
+            category: "anime",
+            titleClass: "title-anime"
+        },
+        {
+            title: "Suits - Micheal Ross",
+            file: "videos/Rottweiler-ae-deathg_1.mp4",
+            category: "series",
+            titleClass: "title-series-movies"
+        },
+        {
+            title: "The Amazing Spider-Man: Peter & Gwen",
+            file: "videos/Superpowers_5.mp4",
+            category: "series",
+            titleClass: "title-series-movies" 
+        },
+        {
+            title: "The Amazing Spider-Man",
+            file: "videos/Spider Man edit post.mp4",
+            category: "series",
+            titleClass: "title-series-movies" 
+        },
+        {
+            title: "Dispatch - Blonde Blazer",
+            file: "videos/Do Re Mi V2 - by heat.mp4",
+            category: "gaming",
+            titleClass: "title-gaming"
+        },
+        {
+            title: "Dispatch - Invisigal",
+            file: "videos/Final.mp4",
+            category: "gaming",
+            titleClass: "title-gaming"
+        },
+        {
+            title: "Dispatch - Malevola",
+            file: "videos/Number 28 [slowed] (Edited) Jsmooth.mp4",
+            category: "gaming",
+            titleClass: "title-gaming"
+        },
+    ];
+
+    function enterVault() {
+        // Find welcome screen by ID
+        const welcome = document.getElementById('welcome-screen');
+        const sound = document.getElementById('vault-sound');
+
+        // Play sound
+        sound.play();
+        
+        // Fade out the screen
+        welcome.classList.add('fade-out');
+
+        console.log('Welcome to the Vault!')
+
+    }
+
+    function openLightbox(videoSrc) {
+        const lightbox = document.getElementById('lightbox');
+        const lbVideo = document.getElementById('lightbox-video');
+    
+        lbVideo.src = videoSrc; // Put the clicked video into the lightbox
+        lightbox.style.display = 'flex'; // Show the lightbox
+        lbVideo.play();
+    }
+
+    function closeLightbox() {
+        const lightbox = document.getElementById('lightbox');
+        const lbVideo = document.getElementById('lightbox-video');
+    
+        lightbox.style.display = 'none'; // Hide the lightbox
+        lbVideo.pause(); // Stop the video
+        lbVideo.src = ""; // Clear the source
+    }
+
+    function loadEdits() {
+
+        myEdits.forEach(edit => {
+
+            // Choose which grid to put the video in
+            const gridId = edit.category === 'anime' ? 'anime-grid' : 
+                          edit.category === 'series' ? 'series-grid' : 'gaming-grid';
+            const grid = document.getElementById(gridId);
+
+            // Create the HTML for the card
+            const cardHTML = `
+            <div class="video-card">
+                <video class="video-cover" onclick="openLightbox('${edit.file}')">
+                    <source src="${edit.file}" type="video/mp4">
+                </video>
+                <h3 class="${edit.titleClass}">${edit.title}</h3>
+            </div>
+            `;
+
+            // Inject it into the page
+            grid.innerHTML += cardHTML;
+
+        });
+
+    }
+
+    loadEdits();
+
+</script>
+
+<div id="lightbox" onclick="closeLightbox()">
+    <span class="close-btn">&times;</span>
+    <video id="lightbox-video" controls autoplay>
+        <source src="" type="video/mp4">
+    </video>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,296 @@
+
+html {
+
+scroll-behavior: smooth;
+    
+}
+
+body {
+
+background-color: #1a1a1a; /* Dark charcoal gray */
+color: #ffffff; /* White text */
+font-family: sans-serif;
+
+}
+
+h1, h2 {
+
+text-align: center;
+font-family: 'Permanent Marker', cursive;
+
+}
+
+.video-grid {
+
+display: grid;
+/* Columns automatically resize*/
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 20px;
+padding: 20px;
+
+}
+
+.placeholder {
+
+background-color: #333;
+height: 400px;
+display: flex;
+align-items: center;
+justify-content: center;
+border: 2px dashed #555;
+
+}
+
+/*
+video {
+    width: 100%;
+    aspect-ratio: 9/ 16;
+    object-fit: cover; 
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    background-color: #000; 
+}
+*/
+
+/* Option A: Fills entire box*/
+.video-cover {
+
+width: 100%;
+aspect-ratio: 1/ 1;
+object-fit: cover;
+border-radius: 12px;
+background-color: #000;
+
+}
+
+/* Option B: Shows the whole video*/
+
+.video-contain {
+
+width: 100%;
+aspect-ratio: 1/ 1;
+object-fit: contain;
+border-radius: 12px;
+background-color: #000;
+
+}
+
+video:hover {
+    
+    transform: scale(1.05);/*Slightly enlarges the video*/
+    transition: transform = 0.3s ease; /* Makes the movement smooth*/
+    cursor: pointer;
+
+}
+
+p {
+
+text-align: center;
+font-size: 1.2rem;
+color: #cccccc; /* light gray */
+
+}
+
+.video-card {
+
+    background-color: #252525;
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+    transition: transform 0.3s ease;
+
+}
+
+.video-card h3 {
+
+    margin-top: 10px;
+    font-size: 1.1rem;
+    font-family: 'Permanent Marker', cursive;
+
+}
+
+.video-card:hover {
+
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+
+}
+
+.title-anime {
+
+    color: #ffd700;
+    text-shadow: 2px 2px 10px rgba(255, 215, 0, 0.4);
+    
+}
+
+.title-series-movies {
+
+    color: #a155ff;
+    text-shadow: 2px 2px 10px rgba(161, 85, 255, 0.4);
+
+}
+
+.title-gaming {
+    color: #00d4ff;
+    text-shadow: 2px 2px 10px rgba(0, 212, 255, 0.4);
+}
+
+.navbar {
+
+    background-color: #111;
+    padding: 15px;
+    text-align: center;
+    position: sticky; /*Makes the nav stick the top while scrolling*/
+    top: 0;
+    z-index: 1000; /* Makes sure it stays on top of the videos */
+    border-bottom: 2px solid #333;
+
+}
+
+.navbar a {
+
+    color: white;
+    text-decoration: none;
+    margin: 0 20px;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+
+}
+
+.nav-anime:hover {
+
+color: #ffd700 !important;
+text-shadow: 0 0 10px rgba(255, 214, 0, 0.6) ;
+
+}
+
+.nav-series-movies:hover {
+
+color: #a155ff !important;
+text-shadow: 0 0 10px rgba(161, 85, 255, 0.6);
+
+}
+
+.nav-gaming:hover {
+
+color: #00d4ff !important;
+text-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+
+} 
+
+.vault-footer {
+
+padding: 40px;
+text-align: center;
+background-color: #111;
+border-top: 1px solid #333;
+margin-top: 50px;
+
+}
+
+.vault-footer a {
+
+color: #ffd700;
+text-decoration: none;
+font-family: 'Permanent Marker', cursive;
+
+}
+
+.vault-footer a:hover {
+    text-decoration: underline;
+}
+
+.vault-footer a i {
+
+margin-left: 10px;
+font-size: 1.5rem;
+vertical-align: middle;
+
+}
+
+.vault-footer a i:hover {
+
+color: #ff0050; /*Tiktok's signature*/
+transform: scale(1.2);
+transition: transform 0.3s ease, color 0.3s ease;
+}
+
+#welcome-screen {
+
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: #000;
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 9999;
+transition: opacity 1s, visibility 1s;
+
+}
+
+.welcome-content button {
+
+padding: 15px 30px;
+font-family: 'Permanent Marker', cursive;
+font-size: 2rem;
+background-color: #ffd700;
+border: none;
+cursor: pointer;
+border-radius: 5px;
+box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+
+}
+
+.fade-out {
+
+opacity: 0;
+visibility: hidden;
+
+}
+
+#bg-video {
+
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+z-index: -1; /*Puts video in the background*/
+filter: brightness(40%) grayscale(50%);
+
+}
+
+#lightbox {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 10000; /* Above everything else */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); /* Deep dark background */
+    justify-content: center;
+    align-items: center;
+}
+
+#lightbox-video {
+    max-width: 90%;
+    max-height: 80%;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 50px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+}
