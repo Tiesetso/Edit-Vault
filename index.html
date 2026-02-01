@@ -75,7 +75,8 @@
     const myEdits = [
         {
             title: "Cyberpunk: Edgerunners",
-            file: "videos/I want to hear you say the moon is beautiful.mp4",
+            youtubeID: "iwIGHJzYTJI", // after the v= (ID)
+            thumbnail: "images/Moon.png",
             category: "anime",
             titleClass: "title-anime"
         },
@@ -105,19 +106,19 @@
         },
         {
             title: "Fire Force - Jargurnut",
-            file: "videos/I let world burn_fin.mp4",
+            youtubeID: "30oX2f0U0cI",
             category: "anime",
             titleClass: "title-anime"
         },
         {
             title: "Dragon Ball Super - Goku",
-            file: "videos/JMSN - Love Me X Goku.mp4",
+            youtubeID: "B2h50sSKWNY",
             category: "anime",
             titleClass: "title-anime"
         },
         {
             title: " Kuroko's Basketball - Flow Style",
-            file: "videos/Ball if I want to KB.mp4",
+            youtubeID: "ukulGrshF5I",
             category: "anime",
             titleClass: "title-anime"
         },
@@ -177,19 +178,42 @@
     function openLightbox(videoSrc) {
         const lightbox = document.getElementById('lightbox');
         const lbVideo = document.getElementById('lightbox-video');
+        const lbIframe = document.getElementById('lightbox-iframe');
+
+        // Reset both players first
+        lbVideo.style.display = 'none';
+        lbIframe.style.display = 'none';
+        lbVideo.src = "";
+        lbIframe.src = "";
+
+        if (videoSrc.includes('youtube.com') || videoSrc.includes('drive.google.com')) {
+
+            // If it's Drive, convert /view to /preview for the iframe
+            lbIframe.src = videoSrc.replace('/view', '/preview');
+            lbIframe.style.display = 'block';
+
+        } else {
+
+            // It's a local file
+            lbVideo.src = videoSrc; // Put the clicked video into the lightbox
+            lbVideo.style.display = 'block';
+            lbVideo.play();
+
+        }
     
-        lbVideo.src = videoSrc; // Put the clicked video into the lightbox
         lightbox.style.display = 'flex'; // Show the lightbox
-        lbVideo.play();
+        
     }
 
     function closeLightbox() {
         const lightbox = document.getElementById('lightbox');
         const lbVideo = document.getElementById('lightbox-video');
+        const lbIframe = document.getElementById('lightbox-iframe');
     
         lightbox.style.display = 'none'; // Hide the lightbox
         lbVideo.pause(); // Stop the video
         lbVideo.src = ""; // Clear the source
+        lbIframe.src = "";
     }
 
     function loadEdits() {
@@ -201,12 +225,54 @@
                           edit.category === 'series' ? 'series-grid' : 'gaming-grid';
             const grid = document.getElementById(gridId);
 
+            /*
+            // We use the thumbnail here instead of the raw video
+            const mediaHTML = `
+                <div class="thumb-container" onclick="openLightbox('${edit.file}')">
+                    <img src="${edit.thumbnail}" class="video-cover" alt="${edit.title}">
+                    <div class="play-overlay"><i class="fas fa-play"></i></div>
+                </div>
+            `;*/
+
+            // Logic: Show thumbnail if available, otherwise show the video
+
+            let mediaHTML = "";
+
+            // Determine the "source" for the click event
+            const finalLink = edit.youtubeID ? `https://www.youtube.com/embed/${edit.youtubeID}` : edit.file;
+
+            if (edit.thumbnail) {
+                mediaHTML = `
+                    <div class="thumb-container" onclick="openLightbox('${finalLink}')">
+                        <img src="${edit.thumbnail}" class="video-cover" alt="${edit.title}">
+                        <div class="play-overlay"><i class="fas fa-play"></i></div>
+                    </div>`;
+            } else if (edit.youtubeID) {
+                mediaHTML = `<iframe class="video-cover" src="https://www.youtube.com/embed/${edit.youtubeID}" frameborder="0" allowfullscreen></iframe>`;
+            } else {
+                mediaHTML = `
+                    <video class="video-cover" onclick="openLightbox('${edit.file}')" muted onmouseover="this.play()" onmouseout="this.pause()">
+                        <source src="${edit.file}" type="video/mp4">
+                    </video>`;
+            }
+
+            /*
+            let mediaHTML = "";
+
+            if (edit.youtubeID) {
+                // iframe for YouTube
+                mediaHTML = `<iframe class="video-cover" src="https://www.youtube.com/embed/${edit.youtubeID}?autoplay=0" frameborder="0" allowfullscreen></iframe>`;
+            } else {
+                // og for local files
+                mediaHTML = `<video class="video-cover" onclick="openLightbox('${edit.file}')">
+                    <source src="${edit.file}" type="video/mp4">
+                </video>`
+            } */
+
             // Create the HTML for the card
             const cardHTML = `
             <div class="video-card">
-                <video class="video-cover" onclick="openLightbox('${edit.file}')">
-                    <source src="${edit.file}" type="video/mp4">
-                </video>
+                ${mediaHTML}
                 <h3 class="${edit.titleClass}">${edit.title}</h3>
             </div>
             `;
@@ -227,6 +293,7 @@
     <video id="lightbox-video" controls autoplay>
         <source src="" type="video/mp4">
     </video>
+    <iframe id="lightbox-iframe" src="" frameborder="0" allowfullscreen></iframe>
 </div>
 
 </body>
